@@ -4,30 +4,28 @@ import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 import { Container } from './styles';
 
-import api from '../../services/api';
-
 import { Link } from 'react-router-dom';
 
-const Food = ({ food, handleDelete, handleEditFood }) => {
+const Food = ({ food, handleDelete, handleEditFood, handleUpdateFood }) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable() {
     // TODO UPDATE STATUS (available)
+
+    // o ideal seria atualizar apenas a propriedade "available",
+    // mas não consegui, então enviei o objeto inteiro
     const updatedFood = { ...food, available: !isAvailable };
-    try {
-      await api.put(`foods/${food.id}`, updatedFood);
-      setIsAvailable(!isAvailable);
-    } catch (err) {
-      console.log(err);
-    }
+    handleUpdateFood(updatedFood);
+    setIsAvailable(!isAvailable);
   }
 
   function setEditingFood() {
     // TODO - SET THE ID OF THE CURRENT ITEM TO THE EDITING FOOD AND OPEN MODAL
+
+    // o TODO do handleEditFood é semelhante, logo eu centralizei lá
+    // o que deveria ser feito ao clicar em uma comida (setar a comida e abrir o modal)
     handleEditFood(food);
   }
-
-  // onClick={() => history.push(`${match.url}/food/${food.id}`)}
 
   return (
     <Container available={isAvailable}>

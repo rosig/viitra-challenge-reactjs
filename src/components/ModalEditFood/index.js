@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef } from 'react';
 
 import { FiCheckSquare } from 'react-icons/fi';
 import { Form } from './styles';
@@ -13,11 +13,31 @@ const ModalEditFood = ({
 }) => {
   const formRef = useRef(null);
 
+  // checa se dois objetos são iguais, é uma chegagem bem simples,
+  // apenas leva em consideração a ordem das propriedades
+  function checksObjectsAreEqual(updatedFood, editingFood) {
+    const updatedFoodValues = Object.values(updatedFood).toString();
+    const editingFoodValues = Object.values(editingFood).toString();
+
+    if (updatedFoodValues === editingFoodValues) return true;
+
+    return false;
+  }
+
   function handleSubmit(data) {
     // EDIT A FOOD PLATE AND CLOSE THE MODAL
     const updatedFood = { ...data, id: editingFood.id, available: editingFood.available };
-    handleUpdateFood(updatedFood);
-    setIsOpen();
+
+    const objectsAreEqual = checksObjectsAreEqual(updatedFood, editingFood);
+
+    // se os objetos foram iguais, não há necessidade de fazer uma solicitação para o servidor,
+    // logo basta apenas fechar o modal e o usuário nem vai perceber
+    if (!objectsAreEqual) {
+      handleUpdateFood(updatedFood);
+      setIsOpen();
+    } else {
+      setIsOpen();
+    }
   }
 
   return (

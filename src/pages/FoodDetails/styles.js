@@ -51,11 +51,14 @@ export const FoodDetailsContainer = styled.div`
     height: 483px;
 
     img {
+      height: 271px;
+      width: 483px;
       position: relative;
       top: 106px;
       right: 106px;
       width: 483px;
       transform: rotate(90deg);
+      border-radius: 8px 8px 0 0;
     }
   }
 

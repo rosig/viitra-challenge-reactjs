@@ -48,7 +48,6 @@ const Dashboard = () => {
     try {
       await api.put(`foods/${food.id}`, food);
       updateListFoods();
-      // setEditModalOpen(false);
     } catch (err) {
       console.log(err);
     }
@@ -68,15 +67,16 @@ const Dashboard = () => {
     let newId = null;
     let found = null;
 
-    for (let id = 1; found !== -1; id++) {
-      found = foods.findIndex(food => food.id === id);
+    for (let id = 1; found !== undefined; id++) {
+      found = foods.find(food => food.id === id);
       newId = id;
     }
 
     return newId;
   }
 
-  function toggleModal() {
+  //alterei o nome para identificar o modal "Add"
+  function toggleAddModal() {
     setModalOpen(!modalOpen);
   }
 
@@ -92,10 +92,10 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header openModal={toggleModal} />
+      <Header openModal={toggleAddModal} />
       <ModalAddFood
         isOpen={modalOpen}
-        setIsOpen={toggleModal}
+        setIsOpen={toggleAddModal}
         handleAddFood={handleAddFood}
       />
       <ModalEditFood
@@ -113,6 +113,7 @@ const Dashboard = () => {
               food={food}
               handleDelete={handleDeleteFood}
               handleEditFood={handleEditFood}
+              handleUpdateFood={handleUpdateFood}
             />
           ))}
       </FoodsContainer>

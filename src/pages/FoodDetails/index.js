@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { FoodDetailsContainer } from './styles';
-import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 const FoodDetails = () => {

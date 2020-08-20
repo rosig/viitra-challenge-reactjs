@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FiCheckSquare } from 'react-icons/fi';
 
 import { Form } from './styles';
@@ -7,12 +7,27 @@ import Input from '../Input';
 
 const ModalAddFood = ({ isOpen, setIsOpen, handleAddFood }) => {
   const formRef = useRef(null);
-  const image = "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png";
+  const [warningOpen, setWarningOpen] = useState(false);
+
   function handleSubmit(data) {
     // TODO ADD A NEW FOOD AND CLOSE THE MODAL
-    handleAddFood({ ...data, image: image });
-    setIsOpen();
+
+    // checa se alguma string é vazia
+    const checkEmptyString = Object.values(data).find(item => item.trim().length === 0);
+
+    if (checkEmptyString === undefined) {
+      handleAddFood(data);
+      setWarningOpen(false);
+      setIsOpen();
+    } else { // emite um aviso no formulário
+      setWarningOpen(true);
+    }
   }
+
+  const ShowWarning = () => {
+    if (warningOpen) return <p className="form-warning">Está faltando algo no formulário!</p>;
+    else return null;
+  };
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -26,6 +41,7 @@ const ModalAddFood = ({ isOpen, setIsOpen, handleAddFood }) => {
         <Input name="description" placeholder="Descrição" />
         <Input name="quantity" placeholder="Quantidade de pratos" />
         <Input name="timeToCook" placeholder="Tempo de preparação" />
+        <ShowWarning />
         <button>
           <p className="text">Adicionar Prato</p>
           <div className="icon">
