@@ -11,24 +11,24 @@
       "timeToCook": "30min"
     },
     {
-      "id": 2,
-      "name": "Veggie",
-      "description": "Macarrão com pimentão, ervilha e ervas finas colhidas no himalaia.",
-      "price": "21.90",
-      "available": true,
-      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food2.png",
-      "quantity": 2,
-      "timeToCook": "50min"
-    },
-    {
       "id": 3,
       "name": "A la Camarón",
       "description": "Macarrão com vegetais de primeira linha e camarão dos 7 mares.",
       "price": "25.90",
-      "available": true,
+      "available": false,
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png",
       "quantity": 5,
       "timeToCook": "20min"
+    },
+    {
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png",
+      "name": "Pizza 4 Queijos",
+      "price": "34.00",
+      "description": "Molho de tomate, mussarela, catupiry, provolone e parmesão.",
+      "quantity": "20",
+      "timeToCook": "20min",
+      "id": 2,
+      "available": true
     }
   ]
 }

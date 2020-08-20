@@ -4,6 +4,12 @@ export const Container = styled.div`
   background: #f0f0f5;
   border-radius: 8px;
 
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.1s ease-in;
+    cursor: pointer;
+  }
+
   header {
     background: #ffb84d;
     border-radius: 8px 8px 0px 0px;
@@ -13,8 +19,8 @@ export const Container = styled.div`
     text-align: center;
 
     ${props =>
-      !props.available &&
-      css`
+    !props.available &&
+    css`
         opacity: 0.3;
       `};
 
@@ -26,6 +32,7 @@ export const Container = styled.div`
 
   section.body {
     padding: 30px;
+    min-height: 211px;
 
     h2 {
       color: #3d3d4d;

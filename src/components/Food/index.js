@@ -4,29 +4,45 @@ import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 import { Container } from './styles';
 
+import api from '../../services/api';
+
+import { Link } from 'react-router-dom';
+
 const Food = ({ food, handleDelete, handleEditFood }) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable() {
     // TODO UPDATE STATUS (available)
+    const updatedFood = { ...food, available: !isAvailable };
+    try {
+      await api.put(`foods/${food.id}`, updatedFood);
+      setIsAvailable(!isAvailable);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function setEditingFood() {
     // TODO - SET THE ID OF THE CURRENT ITEM TO THE EDITING FOOD AND OPEN MODAL
+    handleEditFood(food);
   }
+
+  // onClick={() => history.push(`${match.url}/food/${food.id}`)}
 
   return (
     <Container available={isAvailable}>
-      <header>
-        <img src={food.image} alt={food.name} />
-      </header>
-      <section className="body">
-        <h2>{food.name}</h2>
-        <p>{food.description}</p>
-        <p className="price">
-          R$ <b>{food.price}</b>
-        </p>
-      </section>
+      <Link to={`/food/${food.id}`}>
+        <header>
+          <img src={food.image} alt={food.name} />
+        </header>
+        <section className="body">
+          <h2>{food.name}</h2>
+          <p>{food.description}</p>
+          <p className="price">
+            R$ <b>{food.price}</b>
+          </p>
+        </section>
+      </Link>
       <section className="footer">
         <div className="icon-container">
           <button

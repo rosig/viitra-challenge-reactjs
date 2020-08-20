@@ -16,9 +16,28 @@ const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
+  useEffect(() => {
+    async function fetchFoods() {
+      const res = await api.get('foods');
+      setFoods(res.data);
+    }
+
+    fetchFoods();
+  }, []);
+
+  async function updateListFoods() {
+    const res = await api.get('foods');
+    setFoods(res.data);
+  }
+
   async function handleAddFood(food) {
+    const newFood = { ...food, id: getNewId(), available: true };
+
     try {
       // TODO ADD A NEW FOOD PLATE TO THE API
+      await api.post('foods', newFood);
+      updateListFoods();
+
     } catch (err) {
       console.log(err);
     }
@@ -26,10 +45,35 @@ const Dashboard = () => {
 
   async function handleUpdateFood(food) {
     // TODO UPDATE A FOOD PLATE ON THE API
+    try {
+      await api.put(`foods/${food.id}`, food);
+      updateListFoods();
+      // setEditModalOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function handleDeleteFood(id) {
     // TODO DELETE A FOOD PLATE FROM THE API
+    try {
+      await api.delete(`foods/${id}`);
+      updateListFoods();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function getNewId() {
+    let newId = null;
+    let found = null;
+
+    for (let id = 1; found !== -1; id++) {
+      found = foods.findIndex(food => food.id === id);
+      newId = id;
+    }
+
+    return newId;
   }
 
   function toggleModal() {
@@ -42,6 +86,8 @@ const Dashboard = () => {
 
   function handleEditFood(food) {
     // TODO SET THE CURRENT EDITING FOOD ID IN THE STATE
+    setEditingFood(food);
+    setEditModalOpen(true);
   }
 
   return (

@@ -15,6 +15,9 @@ const ModalEditFood = ({
 
   function handleSubmit(data) {
     // EDIT A FOOD PLATE AND CLOSE THE MODAL
+    const updatedFood = { ...data, id: editingFood.id, available: editingFood.available };
+    handleUpdateFood(updatedFood);
+    setIsOpen();
   }
 
   return (
@@ -27,6 +30,8 @@ const ModalEditFood = ({
         <Input name="price" placeholder="Ex: 19.90" />
 
         <Input name="description" placeholder="Descrição" />
+        <Input name="quantity" placeholder="Quantidade de pratos" />
+        <Input name="timeToCook" placeholder="Tempo de preparo" />
 
         <button type="submit">
           <div className="text">Editar Prato</div>
