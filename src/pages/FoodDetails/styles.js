@@ -56,7 +56,6 @@ export const FoodDetailsContainer = styled.div`
       position: relative;
       top: 106px;
       right: 106px;
-      width: 483px;
       transform: rotate(90deg);
       border-radius: 8px 8px 0 0;
     }
